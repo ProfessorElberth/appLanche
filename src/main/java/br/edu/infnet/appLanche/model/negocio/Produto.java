@@ -26,6 +26,16 @@ public abstract class Produto {
 	}
 	
 	public abstract float calcularValorVenda();
+	
+	public String obterValorProduto() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getDescricao());
+		sb.append(";");
+		sb.append(this.calcularValorVenda());
+		sb.append("\r");
+
+		return sb.toString();
+	}
 
 	public String getDescricao() {
 		return descricao;

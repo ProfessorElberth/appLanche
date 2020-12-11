@@ -1,5 +1,7 @@
 package br.edu.infnet.appLanche.model.negocio;
 
+import br.edu.infnet.appLanche.model.exception.MedidaNegativaException;
+
 public class Bebida extends Produto {
 
 	private float medida;
@@ -24,19 +26,19 @@ public class Bebida extends Produto {
 
 	@Override
 	public float calcularValorVenda() {
-		
-		float valor = 0;
-		if(this.isProducaoPropria()) {
-			valor = 2;
-		}
 
-		return this.getValor() + valor + (this.getMedida() * 0.02f);
+		return this.getValor() + (this.isProducaoPropria() ? 2 : 0) + (this.getMedida() * 0.02f);
 	}
 
 	public float getMedida() {
 		return medida;
 	}
-	public void setMedida(float medida) {
+	public void setMedida(float medida) throws MedidaNegativaException {
+		
+		if(medida <= 0) {
+			throw new MedidaNegativaException("Medida inválida.");
+		}
+		
 		this.medida = medida;
 	}
 	public String getMarca() {
